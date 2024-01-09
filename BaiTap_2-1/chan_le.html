@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>nhập vô số a:</p>
+    <p id="demo"></p>
+    <script>
+        function kiemTraChanLe(number) {
+            alert(number + (number % 2 === 0 ? ' là số chẵn' : ' là số lẻ'));
+        }
+        var userInput = prompt('Nhập vào một số: ');
+        var number = parseInt(userInput, 10);
+
+        kiemTraChanLe(number);
+    </script>
+</body>
+
+</html>
