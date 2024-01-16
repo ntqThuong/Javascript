@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="#" id="wap">
+        <h3> Bảng điểm của em</h3><br><br>
+        Semester 1:
+        <input type="text" id="s1"><br><br>
+        Semester 2:
+        <input type="text" id="s2"><br><br>
+        Year :
+        <select name="" id="year">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select><br><br>
+        <span id="demo"></span></p>
+        Summary :
+        <input type="text" id="sum" value=""></input> <br><br>
+        <input type="button" onclick="functionOK()" value="OK"></input>
+        <input type="button" onclick="functionCancle()" value="Cancle"></input>
+
+    </form>
+
+    <script>
+        function functionOK() {
+            var hk1 = parseFloat(document.getElementById("s1").value);
+            var hk2 = parseFloat(document.getElementById("s2").value);
+            var y = document.getElementById("year");
+            var value = parseInt(y[y.selectedIndex].value);
+            var result;
+
+            switch (value) {
+                case 1:
+                    result = (hk1 + hk2) / 2
+
+                    break;
+                case 2: result = (hk1 + (hk2 * 2)) / 3;
+
+                    break;
+                case 3: result = (hk1 + (hk2 * 3)) / 4;
+
+                    break;
+                case 4: result = (hk1 + (hk2 * 4)) / 5;
+
+                    break;
+                default:
+                    console.error("Invalid year value");
+                    return;
+            }
+
+            document.getElementById("sum").value = result;
+            var performance;
+            if (sum >= 8.5) {
+                performance = "Giỏi";
+            } else if (sum >= 6.5) {
+                performance = "Khá";
+            } else {
+                performance = "Trung bình";
+            }
+    
+            document.getElementById("result").value = performance;
+            // switch (result) {
+              //  case sum = 9: {
+              ///      document.getElementById("demo").innerHTML = "xs";
+                //    document.getElementById("demo").style.color = "red";
+               //     break;
+              //  }
+                //case sum = 8: {
+               //     document.getElementById("demo").innerHTML = "kha";
+               //     document.getElementById("demo").style.color = "red";
+//break;
+             //   }
+           //     case sum = 5: {
+               //     document.getElementById("demo").innerHTML = "tbx";
+              //      document.getElementById("demo").style.color = "red";
+               //     break;
+               // }
+           // } -->
+        }
+
+
+    </script>
+
+</body>
+
+</html>
