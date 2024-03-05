@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+<body>
+    <!-- <script>
+        var sinhvien={
+            name:"NGUYỄN THỊ QUỲNH THƯƠNG " ,
+            year: 2003,
+            gender: "nữ",
+            add:"Cần Thơ"
+            
+        }
+        for(x in sinhvien){
+            document.write(sinhvien[x]);
+            document.write("<hr>");
+        }
+    </script> -->
+    <!-- <script>
+        var mobile =["htc","nokias","sam sung ","ls"];
+        var i=0;
+        while(mobile[i]){
+            document.write(mobile[i]+"<br>");
+            i++;
+        }
+    </script> -->
+    <!-- <script>
+        function printMobiles() {
+            var mobile = ["HTC", "Nokias", "Sam Sung", "LG","Apple","Lenovo"];
+            for (var i = 0; i < mobile.length; i++) {
+                document.write(mobile[i] + "<br>");
+            }
+        }
+    
+        // Gọi hàm
+        printMobiles();
+    </script> -->
+    <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính tổng các số nguyên liên tiếp</title>
+</head>
+<body>
+
+<script>
+    function sumConsecutiveIntegers(start, end) {
+        // Kiểm tra nếu start hoặc end không phải là số nguyên
+        if (!Number.isInteger(start) || !Number.isInteger(end)) {
+            return "Vui lòng nhập số nguyên.";
+        }
+
+        // Đảm bảo start không lớn hơn end
+        if (start > end) {
+            var temp = start;
+            start = end;
+            end = temp;
+        }
+
+        var sum = 0;
+        for (var i = start; i <= end; i++) {
+            sum += i;
+        }
+
+        return sum;
+    }
+
+    // Thử nghiệm với các giá trị
+    var result = sumConsecutiveIntegers(1, 5);
+    console.log(result); // Kết quả: 15
+
+    var result2 = sumConsecutiveIntegers(5, 1);
+    console.log(result2); // Kết quả: 15
+
+    var result3 = sumConsecutiveIntegers(2, 8);
+    console.log(result3); // Kết quả: 35
+
+    var result4 = sumConsecutiveIntegers("abc", 10);
+    console.log(result4); // Kết quả: "Vui lòng nhập số nguyên."
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

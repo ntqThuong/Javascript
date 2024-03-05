@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .square {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #333;
+            display: inline-block;
+            margin: 5px; /* Khoảng cách giữa các ô vuông */
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer; /* Đổi con trỏ thành hình bàn tay khi di chuột qua nút */
+            border-radius: 10px; /* Đặt bán kính cho góc của ô vuông */
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // Tạo một lưới 5x10 ô vuông
+    for (var i = 0; i < 5; i++) {
+        var rowColor = i % 2 === 0 ? 'lightyellow' : 'lightgreen'; // Chọn màu cho từng hàng
+
+        for (var j = 0; j < 10; j++) {
+            var square = document.createElement("div");
+            square.className = "square";
+            square.textContent = "click";
+            square.style.backgroundColor = rowColor;
+            square.onclick = showMessage;
+            document.body.appendChild(square);
+        }
+
+        document.write("<div class='clear'></div>")
+    }
+
+    // Hàm xử lý khi nút được nhấp
+    function showMessage() {
+        alert("Xin chào bạn!");
+    }
+</script>
+
+</body>
+</html>
