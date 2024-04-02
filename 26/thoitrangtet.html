@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Management</title>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .input-field {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container mx-auto">
+    <h1 class="mt-10 text-3xl mb-8 text-center uppercase font-medium text-red-600">Product Management</h1>
+
+    <form class="max-w-sm mx-auto" name="productInfo">
+        <div class="mb-5">
+            <label for="name" class="block mb-2">Product Name</label>
+            <input type="text" id="name" class="input-field" placeholder="Enter product name" required />
+        </div>
+        <div class="mb-5">
+            <label for="code" class="block mb-2">Product Code</label>
+            <input type="text" id="code" class="input-field" placeholder="Enter product code" required />
+        </div>
+        <div class="mb-5">
+            <label for="file_input" class="block mb-2">Product Image</label>
+            <input id="file_input" type="file" class="input-field" />
+        </div>
+        <div class="mb-5">
+            <label for="old-price" class="block mb-2">Old Price</label>
+            <input type="text" id="old-price" class="input-field" placeholder="Enter old price" required />
+        </div>
+        <div class="mb-5">
+            <label for="new-price" class="block mb-2">New Price</label>
+            <input type="text" id="new-price" class="input-field" placeholder="Enter new price" required />
+        </div>
+        <button type="button" id="btn-create" onclick="handleAddProduct()" class="button-style">Add</button>
+        <button type="button" id="btn-update" class="button-style hidden" onclick="updateProduct()">Update</button>
+        <button type="button" id="btn-reset" class="button-style" onclick="resetForm()">Reset</button>
+    </form>
+
+    <div class="mt-20">
+        <h2 class="text-2xl mb-4">Product List</h2>
+        <table id="product-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Img</th>
+                    <th>Old Price</th>
+                    <th>New Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="product-list"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let products = [];
+
+    function handleAddProduct() {
+        const name = document.getElementById('name').value;
+        const code = document.getElementById('code').value;
+        const oldPrice = document.getElementById('old-price').value;
+        const newPrice = document.getElementById('new-price').value;
+
+        const product = {
+            id: Date.now(),
+            name,
+            code,
+            oldPrice,
+            newPrice
+        };
+
+        products.push(product);
+        saveProductsToLocalStorage();
+        renderProducts();
+        resetForm();
+    }
+
+    function saveProductsToLocalStorage() {
+        localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    function getProductsFromLocalStorage() {
+        const storedProducts = localStorage.getItem('products');
+        if (storedProducts) {
+            products = JSON.parse(storedProducts);
+        }
+    }
+
+    function renderProducts() {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
+
+        products.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.id}</td>
+                <td>${product.code}</td>
+                <td>${product.name}</td>
+                <td></td> <!-- Placeholder for image -->
+                <td>${product.oldPrice}</td>
+                <td>${product.newPrice}</td>
+                <td>
+                    <button onclick="editProduct(${product.id})">Edit</button>
+                    <button onclick="deleteProduct(${product.id})">Delete</button>
+                </td>
+            `;
+            productList.appendChild(row);
+        });
+    }
+
+    function editProduct(productId) {
+        const product = products.find(item => item.id === productId);
+        if (product) {
+            document.getElementById('name').value = product.name;
+            document.getElementById('code').value = product.code;
+            document.getElementById('old-price').value = product.oldPrice;
+            document.getElementById('new-price').value = product.newPrice;
+
+            document.getElementById('btn-create').style.display = 'none';
+            document.getElementById('btn-update').style.display = 'inline-block';
+
+            // Set a hidden input field to store the product id being edited
+            document.getElementById('product-id').value = product.id;
+        }
+    }
+
+    function updateProduct() {
+        const productId = document.getElementById('product-id').value;
+        const productIndex = products.findIndex(item => item.id === parseInt(productId));
+
+        if (productIndex !== -1) {
+            const updatedProduct = {
+                id: productId,
+                name: document.getElementById('name').value,
+                code: document.getElementById('code').value,
+                oldPrice: document.getElementById('old-price').value,
+                newPrice: document.getElementById('new-price').value
+            };
+
+            products[productIndex] = updatedProduct;
+            saveProductsToLocalStorage();
+            renderProducts();
+            resetForm();
+        }
+    }
+
+    function deleteProduct(productId) {
+        products = products.filter(item => item.id !== productId);
+        saveProductsToLocalStorage();
+        renderProducts();
+    }
+
+    function resetForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('code').value = '';
+        document.getElementById('old-price').value = '';
+        document.getElementById('new-price').value = '';
+
+        document.getElementById('btn-create').style.display = 'inline-block';
+        document.getElementById('btn-update').style.display = 'none';
+
+        // Clear the hidden input field storing the product id being edited
+        document.getElementById('product-id').value = '';
+    }
+
+    // Load products from localStorage on page load
+    window.onload = function() {
+        getProductsFromLocalStorage();
+        renderProducts();
+    };
+</script>
+</body>
+</html>
